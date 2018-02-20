@@ -1,43 +1,80 @@
-<article class="card mb-4 wow materialUp animation-delay-5">
-    <figure class="ms-thumbnail ms-thumbnail-diagonal">
-      <img src="assets/img/demo/post1.jpg" alt="" class="img-fluid">
-      <figcaption class="ms-thumbnail-caption text-center">
-        <div class="ms-thumbnail-caption-content">
-          <h3 class="ms-thumbnail-caption-title">Lorem ipsum dolor sit</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-          <div class="mt-2">
-            <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-sm mr-1 btn-circle-white color-danger">
-              <i class="zmdi zmdi-favorite"></i>
-            </a>
-            <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-sm ml-1 mr-1 btn-circle-white color-warning">
-              <i class="zmdi zmdi-star"></i>
-            </a>
-            <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-sm ml-1 btn-circle-white color-success">
-              <i class="zmdi zmdi-share"></i>
-            </a>
+<article class="card mb-4 wow materialUp animation-delay-2">
+  <figure class="ms-thumbnail ms-thumbnail-diagonal">
+    <img src="{{post.thumbnail}}" alt="" class="img-fluid">
+    <figcaption class="ms-thumbnail-caption text-left">
+      <div class="ms-thumbnail-caption-content" style="overflow-y: scroll; height:100%;">
+        <div class="col-lg-12 col-md-12 ms-footer-col">
+          <div class="ms-footbar-block">
+            <h3 class="ms-footbar-title text-left mb-1" style="margin-bottom: 50px;">
+              <i class="zmdi zmdi-wifi-alt" style=" -webkit-transform: rotate(45deg);
+              -moz-transform: rotate(45deg);
+              -ms-transform: rotate(45deg);
+              -o-transform: rotate(45deg);
+              transform: rotate(45deg);"></i>
+              Latest Comments.
+            </h3>
+
+            <div class="ms-footer-media" style="color:white;">
+              <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+            </div>
           </div>
         </div>
-      </figcaption>
-    </figure>
-    <div class="card-body">
-      <h2>
-        <a href=javascript:void(0)>Lorem ipsum Minim Ut in nulla labore sint nostrud</a>
-      </h2>
-      <p>Sed ut perspiciatis unde omnis iste natus error nesciunt voluptas sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-      <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt voluptas sit aspernatur.</p>
+      </div>
+
+    </figcaption>
+  </figure>
+  <div class="card-body">
+    <div class="ms-media-list">
+
+
       <div class="row">
         <div class="col-md-6">
-          <div class="mt-1">
-            <a href="javascript:void(0)" class="ms-tag ms-tag-info">Design</a>
-            <a href="javascript:void(0)" class="ms-tag ms-tag-danger">Productivity</a>
-            <a href="javascript:void(0)" class="ms-tag ms-tag-royal">Resources</a>
+          <div class="media mb-2">
+            <div class="media-left media-middle">
+              <a class="mr-3" href="#">
+                <img class="media-object" src="{{post.owner.profilePicture}}"> </a>
+            </div>
+            <div class="media-body">
+              <h4 class="mt-0 mb-0 color-warning">{{post.owner.username}}</h4>
+              <div class="">
+                <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-facebook">
+                  <i class="zmdi zmdi-facebook"></i>
+                </a>
+                <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-twitter">
+                  <i class="zmdi zmdi-twitter"></i>
+                </a>
+                <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-instagram">
+                  <i class="zmdi zmdi-instagram"></i>
+                </a>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <a href="javascript:void(0)" class="btn btn-primary btn-raised btn-block animate-icon">Read more
-            <i class="ml-1 no-mr zmdi zmdi-long-arrow-right"></i>
-          </a>
+        <div class="col-md-6 text-right">
+          <p>{{post.createdAt | date: 'hh:mm dd-MM-yyy'}}</p>
         </div>
       </div>
     </div>
-  </article>
+    <p>{{post.description}}</p>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mt-1">
+          <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-success mr-2">
+            <i class="zmdi  zmdi-thumb-up"></i>
+            <span class="badge-pill badge-pill-primary">4</span>
+          </a>
+
+          <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-danger mr-2">
+            <i class="zmdi  zmdi-thumb-down"></i>
+            <span class="badge-pill badge-pill-primary">4</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <a href="javascript:void(0)" class="btn btn-primary btn-raised btn-block animate-icon">Read more
+          <i class="ml-1 no-mr zmdi zmdi-long-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>

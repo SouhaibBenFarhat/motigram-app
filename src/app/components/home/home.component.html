@@ -2,11 +2,8 @@
 <div class="container mt-6">
   <div class="row">
     <div class="col-lg-8">
-      <app-post-item></app-post-item>
-      <app-post-item></app-post-item>
-      <app-post-item></app-post-item>
-      <app-post-item></app-post-item>
-      <app-post-item></app-post-item>
+      <app-post-item *ngFor="let post of posts" [post]="post"></app-post-item>
+
     </div>
     <div class="col-lg-4">
       <app-home-sidebar></app-home-sidebar>

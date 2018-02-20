@@ -14,12 +14,25 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 //My custom imports
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+
+
+//Services
+import { AuthService } from "./services/auth-service/auth.service";
+import { PostService } from "./services/post-service/post.service";
+import { CommentService } from "./services/comment-service/comment.service";
+
+
+//Components
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
 import { HomeSidebarComponent } from './components/home/home-sidebar/home-sidebar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PostSmallItemComponent } from './components/post-small-item/post-small-item.component';
+import { CommentComponent } from './components/comment/comment.component';
 
 
 //Routes Configuration
@@ -45,12 +58,18 @@ const appRoutes: Routes = [
     LandingComponent,
     SidemenuComponent,
     HomeSidebarComponent,
-    FooterComponent
+    FooterComponent,
+    PostSmallItemComponent,
+    CommentComponent
   ],
   imports: [
-    BrowserModule, RouterModule.forRoot(appRoutes), FormsModule
+    BrowserModule,
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    HttpClientModule,
+
   ],
-  providers: [],
+  providers: [AuthService, PostService, CommentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

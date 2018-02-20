@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Post } from "../../models/post";
+import { Comment } from "../../models/comment";
+import { CommentService } from "../../services/comment-service/comment.service";
 
 @Component({
   selector: 'app-post-item',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostItemComponent implements OnInit {
 
-  constructor() { }
+  @Input() post: Post;
+  comments = new Array<Comment>();
+
+  constructor(private commentService: CommentService) { }
 
   ngOnInit() {
+    this.commentService.getCommentsByPostId(this.post.id).then((data) => {
+      this.comments = data;
+      console.log(this.comments);
+    })
   }
 
 }

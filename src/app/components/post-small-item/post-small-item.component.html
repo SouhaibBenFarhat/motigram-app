@@ -1,0 +1,21 @@
+<div class="media" style="margin-top: 30px;">
+  <div class="media-left media-middle">
+    <a href="javascript:void(0)">
+      <img style="height: 70px; width: 70px;" class="media-object" src="{{post.owner.profilePicture}}">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">
+      <a href="javascript:void(0)"> {{ (post.description.length>100)? (post.description | slice:0:100)+'..':(post.description) }}
+      </a>
+    </h4>
+    <div class="media-footer">
+      <span>
+        <i class="zmdi zmdi-time color-info-light"></i> {{post.createdAt | date: 'hh:mm dd-MM-yyy'}}</span>
+      <span>
+        <i class="zmdi zmdi-account color-warning-light"></i>
+        <a href="javascript:void(0)"> {{post.owner.username}} </a>
+      </span>
+    </div>
+  </div>
+</div>
