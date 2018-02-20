@@ -1,2 +1,6 @@
-<app-toolbar></app-toolbar>
-<router-outlet></router-outlet>
+<div class="ms-site-container">
+  <app-toolbar [hidden]="hideExtra"></app-toolbar>
+  <router-outlet></router-outlet>
+  <app-sidemenu></app-sidemenu>
+  <app-footer [hidden]="hideExtra"></app-footer>
+</div>

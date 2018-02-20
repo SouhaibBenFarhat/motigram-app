@@ -16,6 +16,10 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
 import { RegisterComponent } from './components/authentication/register/register.component';
+import { LandingComponent } from './components/landing/landing.component';
+import { SidemenuComponent } from './components/sidemenu/sidemenu.component';
+import { HomeSidebarComponent } from './components/home/home-sidebar/home-sidebar.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 
 //Routes Configuration
@@ -37,7 +41,11 @@ const appRoutes: Routes = [
     AddPostComponent,
     ToolbarComponent,
     AuthenticationComponent,
-    RegisterComponent
+    RegisterComponent,
+    LandingComponent,
+    SidemenuComponent,
+    HomeSidebarComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(appRoutes), FormsModule
