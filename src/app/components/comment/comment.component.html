@@ -1,13 +1,13 @@
 <div class="media" style="margin-top: 30px;">
   <div class="media-left media-middle">
     <a href="javascript:void(0)">
-      <img style="height: 70px; width: 70px;" class="media-object" src="">
+      <img style="height: 70px; width: 70px;" class="media-object" src="{{user.profilePicture}}">
     </a>
   </div>
   <div class="media-body">
     <h4 class="media-heading">
       <p>
-        {{comment.content}}
+       {{comment.content}}
       </p>
     </h4>
     <div class="media-footer">
@@ -18,7 +18,7 @@
       <span>
         <i class="zmdi zmdi-account color-warning-light"></i>
         <a href="javascript:void(0)">
-          <!-- {{post.owner.username}}  -->
+          {{user.username}}
         </a>
       </span>
     </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from "../../../services/auth-service/auth.service";
+import { User } from "../../../models/user";
 
 @Component({
   selector: 'app-home-sidebar',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeSidebarComponent implements OnInit {
 
-  constructor() { }
+  private currentUser: User = new User();
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
+    this.authService.getCurrentUser().then((data) => {
+      this.currentUser = data;
+    })
   }
 
 }

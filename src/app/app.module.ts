@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -15,13 +16,20 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
 //My custom imports
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { ToastOptions } from 'ng2-toastr';
+import { ToastCustomOptions } from "./utility/ToastCustomOptions";
 
+//Guards
+import { AuthGuard } from './guard/auth.guard';
 
 
 //Services
 import { AuthService } from "./services/auth-service/auth.service";
 import { PostService } from "./services/post-service/post.service";
 import { CommentService } from "./services/comment-service/comment.service";
+import { UserService } from "./services/user-service/user.service";
+import { EventBus } from "./EventEmitter/event.bus";
 
 
 //Components
@@ -38,8 +46,8 @@ import { CommentComponent } from './components/comment/comment.component';
 //Routes Configuration
 const appRoutes: Routes = [
   { path: 'authentication', component: AuthenticationComponent },
-  { path: '', component: HomeComponent },
-  { path: 'profile', component: ProfileComponent },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'add-post', component: AddPostComponent }
 ]
 
@@ -67,9 +75,17 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     HttpClientModule,
-
+    BrowserAnimationsModule,
+    ToastModule.forRoot()
   ],
-  providers: [AuthService, PostService, CommentService],
+  providers: [AuthService,
+    PostService,
+    CommentService,
+    UserService,
+    AuthGuard,
+    { provide: ToastOptions, useClass: ToastCustomOptions },
+    EventBus
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

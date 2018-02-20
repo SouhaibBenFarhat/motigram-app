@@ -4,6 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Globals } from '../../utility/global';
 import { Converters } from '../../utility/converters';
+import { User } from "../../models/user";
+import { AuthService } from "../auth-service/auth.service";
+
 import 'rxjs/add/operator/map';
 
 
@@ -16,18 +19,18 @@ export class PostService {
   private converter: Converters;
   private global: Globals;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     this.converter = new Converters();
     this.global = new Globals();
   }
 
   getAllPosts(): any {
     let posts = Array<Post>();
-    this.headers = new HttpHeaders(
-      { 'authorization': 'Bearer ' + this.global.DUMMY_TOKEN });
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
     return new Promise((resolve, reject) => {
 
-      this.http.get(this.global.urls['post'], { headers: this.headers }).map((data: any) => data.data).subscribe((data) => {
+      this.http.get(this.global.urls['post'], { headers: headers }).map((data: any) => data.data).subscribe((data) => {
         for (let i = 0; i < data.length; i++) {
           let post = this.converter.postConverter(data[i])
           posts.push(post);
@@ -41,11 +44,11 @@ export class PostService {
 
   getLatestPosts(): any {
     let posts = Array<Post>();
-    this.headers = new HttpHeaders(
-      { 'authorization': 'Bearer ' + this.global.DUMMY_TOKEN });
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
     return new Promise((resolve, reject) => {
 
-      this.http.get(this.global.urls['latest-posts'], { headers: this.headers }).map((data: any) => data.data).subscribe((data) => {
+      this.http.get(this.global.urls['latest-posts'], { headers: headers }).map((data: any) => data.data).subscribe((data) => {
         for (let i = 0; i < data.length; i++) {
           let post = this.converter.postConverter(data[i])
           posts.push(post);
@@ -53,6 +56,46 @@ export class PostService {
         resolve(posts);
       }, (err) => {
         reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  getPostByUser(username: string): any {
+    let posts = Array<Post>();
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
+    return new Promise((resolve, reject) => {
+
+      this.http.get(this.global.urls['post-by-username'] + username, { headers: headers }).map((data: any) => data.data).subscribe((data) => {
+        for (let i = 0; i < data.length; i++) {
+          let post = this.converter.postConverter(data[i])
+          posts.push(post);
+        }
+        resolve(posts);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  getWhoCommentedByPostId(postId): any {
+    let users = Array<User>();
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
+    return new Promise((resolve, reject) => {
+
+      this.http.get(this.global.urls['post-user-comments'] + postId, { headers: headers }).map((data: any) => data.data).subscribe((data) => {
+
+        for (let i = 0; i < data.length; i++) {
+          let user = this.converter.userConverter(data[i])
+          users.push(user);
+        }
+        resolve(users);
+      }, (err) => {
+        reject(err);
+        console.log(err);
       });
     });
   }

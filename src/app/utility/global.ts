@@ -28,11 +28,21 @@ export class Globals {
         //Posts
         this.urls['post'] = this.serverAddress + '/api/v1/post';
         this.urls['latest-posts'] = this.serverAddress + '/api/v1/post/latest';
+        this.urls['post-user-comments'] = this.serverAddress + '/api/v1/post/user/';
+        this.urls['post-by-username'] = this.serverAddress + '/api/v1/post/';
+
+
 
         //Comments
         this.urls['comment'] = this.serverAddress + '/api/v1/comment';
         this.urls['latest-comment'] = this.serverAddress + '/api/v1/comment/latest';
-        
+        this.urls['comment-by-user'] = this.serverAddress + '/api/v1/comment/user/';
+
+
+
+        //Users
+        this.urls['user-by-id'] = this.serverAddress + '/api/v1/user/';
+
 
 
 

@@ -1,5 +1,6 @@
 import { Post, Interaction } from "../models/post";
 import { Comment } from "../models/comment";
+import { User } from "../models/user";
 
 export class Converters {
 
@@ -41,4 +42,18 @@ export class Converters {
         comment.createdAt = data.createdAt;
         return comment;
     }
+
+    public userConverter(data): any {
+        let user = new User();
+        user.id = data._id;
+        user.membreSince = data.membreSince;
+        user.password = data.password;
+        user.profilePicture = data.profilePicture;
+        user.role = data.role;
+        user.token = data.token;
+        user.username = data.username;
+        return user;
+    }
+
+
 }

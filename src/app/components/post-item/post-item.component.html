@@ -26,7 +26,11 @@
   <div class="card-body">
     <div class="ms-media-list">
 
-
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <img *ngFor="let user of commenters " class="media-object" style="height: 30px; width: 30px;" src="{{user.profilePicture}}">
+        </div>
+      </div>
       <div class="row">
         <div class="col-md-6">
           <div class="media mb-2">
@@ -51,7 +55,11 @@
           </div>
         </div>
         <div class="col-md-6 text-right">
-          <p>{{post.createdAt | date: 'hh:mm dd-MM-yyy'}}</p>
+          <p>
+            <i class="no-mr zmdi zmdi-time"></i> {{post.createdAt | date: 'hh:mm dd-MM-yyy'}}</p>
+          <p>
+
+          </p>
         </div>
       </div>
     </div>
@@ -61,20 +69,71 @@
         <div class="mt-1">
           <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-success mr-2">
             <i class="zmdi  zmdi-thumb-up"></i>
-            <span class="badge-pill badge-pill-primary">4</span>
+            <span class="badge-pill badge-pill-primary">{{post.likes}}</span>
           </a>
 
           <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-danger mr-2">
             <i class="zmdi  zmdi-thumb-down"></i>
-            <span class="badge-pill badge-pill-primary">4</span>
+            <span class="badge-pill badge-pill-primary">{{post.dislike}}</span>
           </a>
+
+          <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-info mr-2">
+            <i class="fa fa-comments-o"></i>
+            <span class="badge-pill badge-pill-primary">{{comments.length}}</span>
+          </a>
+
+
         </div>
       </div>
       <div class="col-md-6">
-        <a href="javascript:void(0)" class="btn btn-primary btn-raised btn-block animate-icon">Read more
-          <i class="ml-1 no-mr zmdi zmdi-long-arrow-right"></i>
+        <a href="javascript:void(0)" data-toggle="modal" [attr.data-target]="'#'+post.id" class="btn btn-primary btn-raised btn-block animate-icon">New Comment.
+          <i class="ml-1 no-mr zmdi zmdi-plus"></i>
         </a>
       </div>
     </div>
   </div>
+
+  <div class="modal" [attr.id]="post.id" tabindex="-1" role="dialog" attr.aria-labelledby="myModalLabel2">
+    <div class="modal-dialog modal-lg animated zoomIn animated-3x" role="document">
+      <div class="modal-content" style="background-color: #00000000; border:0px;">
+        <div class="col-lg-12 col-md-6 order-md-1">
+          <div class="card animated fadeInUp animation-delay-0">
+            <div class="ms-hero-bg-primary ms-hero-img-coffee" [ngStyle]="{ 'background-image': 'url(' + post.thumbnail + ')'}">
+              <h3 class="color-white index-1 text-center no-m pt-4">{{currentUser.username}}</h3>
+              <div class="color-medium index-1 text-center np-m">@{{currentUser.username}}</div>
+              <img src="{{currentUser.profilePicture}}" alt="..." class="img-avatar-circle"> </div>
+            <div class="card-body pt-4 text-center">
+              <h3 class="color-primary"></h3>
+
+              <form class="form-horizontal" autocomplete="off">
+
+                <div class="alert alert-info" *ngIf="error">
+                  <p>
+                    <i class="zmdi zmdi-info-outline"></i> {{errorText}}
+                  </p>
+                </div>
+
+                <fieldset>
+                  <div class="form-group row">
+                    <div class="col-lg-12">
+                      <textarea (keyup)="error = false;" [(ngModel)]="comment.content" name="content" placeholder="Write a comment..." class="form-control"
+                        rows="2" id="textArea"></textarea>
+                    </div>
+                  </div>
+                </fieldset>
+              </form>
+
+
+              <div class="text-right">
+                <button type="button" #closeModal class="btn btn-danger btn-raised animated fadeInLeft animation-delay-4 mr-2" data-dismiss="modal">Close</button>
+                <button type="button" (click)="sendComment()" class="btn btn-success btn-raised animated fadeInLeft animation-delay-4 mr-2">Share</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </article>
