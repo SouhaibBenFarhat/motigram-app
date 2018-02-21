@@ -37,6 +37,23 @@ export class AuthService {
     });
   }
 
+  register(user: User): any {
+    return new Promise((resolve, reject) => {
+      this.http.post(this.global.urls['register'], { username: user.username, password: user.password }).map((data: any) => data.data).subscribe((data) => {
+        if (data != null) {
+          this.currentUser = this.converter.userConverter(data);
+          resolve(this.currentUser);
+        } else {
+          reject('This user is not defined');
+        }
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+
+    });
+  }
+
 
   getCurrentUser(): any {
     return new Promise((resolve, reject) => {

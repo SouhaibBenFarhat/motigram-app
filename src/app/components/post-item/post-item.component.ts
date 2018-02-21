@@ -97,6 +97,7 @@ export class PostItemComponent implements OnInit, AfterViewInit {
         this.closeCommentModal();
         this.loadComments();
         this.toastr.success('Successfully added!', 'Success');
+        this.comment = new Comment();
       }).catch((err) => {
         this.error = true;
         this.errorText = "Oups, error occure!";

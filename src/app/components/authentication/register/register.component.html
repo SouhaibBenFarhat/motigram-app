@@ -1,37 +1,54 @@
-<form>
-    <fieldset>
-      <div class="form-group label-floating">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="zmdi zmdi-account"></i>
-          </span>
-          <label class="control-label" for="ms-form-user-r">Username</label>
-          <input type="text" id="ms-form-user-r" class="form-control"> </div>
+<form novalidate #f="ngForm" (ngSubmit)="onRegisterSubmitted(f)">
+
+  <div class="alert alert-danger" *ngIf="!formIsValid">
+    <p>
+      <i class="zmdi zmdi-info-outline"></i> {{errorText}}
+    </p>
+  </div>
+  <fieldset>
+    <div class="form-group label-floating">
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="zmdi zmdi-account"></i>
+        </span>
+        <label class="control-label" for="ms-form-user">Username</label>
+        <input (keyup)="formIsValid = true" [(ngModel)]="user.username" name="username" #username="ngModel" required type="text"
+           class="form-control"> </div>
+      <div *ngIf="username.errors?.required && username.touched" class="alert alert-warning">
+        Username is required...
       </div>
-      <div class="form-group label-floating">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="zmdi zmdi-email"></i>
-          </span>
-          <label class="control-label" for="ms-form-email-r">Email</label>
-          <input type="email" id="ms-form-email-r" class="form-control"> </div>
+
+    </div>
+    <div class="form-group label-floating">
+      <div class="input-group">
+        <span class="input-group-addon">
+          <i class="zmdi zmdi-lock"></i>
+        </span>
+        <label class="control-label" for="ms-form-pass">Register Now</label>
+        <input (keyup)="formIsValid = true" [(ngModel)]="user.password" name="password" #password="ngModel" required type="password"
+         class="form-control"> </div>
+      <div *ngIf="password.errors?.required && password.touched" class="alert alert-warning">
+        Password is required...
       </div>
-      <div class="form-group label-floating">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="zmdi zmdi-lock"></i>
-          </span>
-          <label class="control-label" for="ms-form-pass-r">Password</label>
-          <input type="password" id="ms-form-pass-r" class="form-control"> </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-5">
+        <div class="form-group mt-1">
+
+        </div>
       </div>
-      <div class="form-group label-floating">
-        <div class="input-group">
-          <span class="input-group-addon">
-            <i class="zmdi zmdi-lock"></i>
-          </span>
-          <label class="control-label" for="ms-form-pass-retype">Re-type Password</label>
-          <input type="password" id="ms-form-pass-retype" class="form-control"> </div>
+      <div class="col-7">
+        <input type="submit" class="btn btn-raised btn-primary pull-right" value="Login">
       </div>
-      <button class="btn btn-raised btn-block btn-primary">Register Now</button>
-    </fieldset>
-  </form>
+      <div class="ms-preload" *ngIf="loading">
+        <div id="status">
+          <div class="spinner">
+            <div class="dot1"></div>
+            <div class="dot2"></div>
+            <div class="dot3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>

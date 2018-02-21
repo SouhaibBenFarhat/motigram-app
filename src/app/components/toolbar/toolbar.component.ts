@@ -82,7 +82,8 @@ export class ToolbarComponent implements OnInit {
         this.closeBtn.nativeElement.click();
         this.loading = false;
         this.toastr.success('successfully shared...', 'Success')
-        console.log('1');
+        this.post = new Post();
+        this.imageSource = new Globals().DEFAUL_IMAGE_PLACEHOLDER;
 
 
       }).catch((err) => {
