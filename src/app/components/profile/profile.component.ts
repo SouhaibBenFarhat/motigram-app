@@ -5,6 +5,10 @@ import { PostService } from '../../services/post-service/post.service';
 import { Post } from '../../models/post';
 import { CommentService } from '../../services/comment-service/comment.service';
 import { Comment } from '../../models/comment';
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user-service/user.service';
+import { Router } from '@angular/router';
+
 
 
 @Component({
@@ -14,30 +18,37 @@ import { Comment } from '../../models/comment';
 })
 export class ProfileComponent implements OnInit {
 
-  private currentUser: User = new User();
+  private user: User = new User();
   private posts: Array<Post> = new Array<Post>();
   private comments: Array<Comment> = new Array<Comment>();
 
-  constructor(private authService: AuthService, private postService: PostService, private commentService: CommentService) { }
+  constructor( private router: Router, private userService: UserService, private authService: AuthService, private postService: PostService, private commentService: CommentService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.authService.getCurrentUser().then((data) => {
-      this.currentUser = data;
-      this.getUserPosts();
-      this.getUserComments();
-    })
+    this.route.params.subscribe((params) => {
+      let userId = params.id;
+
+      this.userService.getUserById(userId).then((data) => {
+        this.user = data;
+        this.getUserPosts();
+        this.getUserComments();
+      }).catch((err)=>{
+        this.router.navigateByUrl("");
+      })
+
+    });
   }
 
 
 
   getUserPosts() {
-    this.postService.getPostByUser(this.currentUser.username).then((data) => {
+    this.postService.getPostByUser(this.user.username).then((data) => {
       this.posts = data;
     })
   }
 
   getUserComments() {
-    this.commentService.getLatestCommentsByUserId(this.currentUser.id).then((data) => {
+    this.commentService.getLatestCommentsByUserId(this.user.id).then((data) => {
       this.comments = data;
       console.log(this.comments);
     })

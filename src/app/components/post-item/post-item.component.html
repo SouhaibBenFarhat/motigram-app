@@ -25,17 +25,11 @@
   </figure>
   <div class="card-body">
     <div class="ms-media-list">
-
-      <div class="row">
-        <div class="col-md-12 text-right">
-          <img *ngFor="let user of commenters " class="media-object" style="height: 30px; width: 30px;" src="{{user.profilePicture}}">
-        </div>
-      </div>
       <div class="row">
         <div class="col-md-6">
           <div class="media mb-2">
             <div class="media-left media-middle">
-              <a class="mr-3" href="#">
+              <a class="mr-3" href="javascript:void(0)" [routerLink]="'profile/'+post.owner.userId">
                 <img class="media-object" src="{{post.owner.profilePicture}}"> </a>
             </div>
             <div class="media-body">

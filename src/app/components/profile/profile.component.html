@@ -5,9 +5,9 @@
         <div class="col-lg-12 col-md-6 order-md-1">
           <div class="card animated fadeInUp animation-delay-7">
             <div class="ms-hero-bg-primary ms-hero-img-coffee">
-              <h3 class="color-white index-1 text-center no-m pt-4">{{currentUser.username}}</h3>
-              <div class="color-medium index-1 text-center np-m">@{{currentUser.username}}</div>
-              <img src="{{currentUser.profilePicture}}" alt="..." class="img-avatar-circle"> </div>
+              <h3 class="color-white index-1 text-center no-m pt-4" *ngIf="user">{{user.username}}</h3>
+              <div class="color-medium index-1 text-center np-m" *ngIf="user">@{{user.username}}</div>
+              <img *ngIf="user" src="{{user.profilePicture}}" alt="..." class="img-avatar-circle"> </div>
             <div class="card-body pt-4 text-center">
               <h3 class="color-primary"></h3>
               <p></p>
@@ -100,7 +100,7 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-8">
+    <div class="col-lg-8" *ngIf="user">
       <div class="row">
         <div class="col-sm-4">
           <div class="card card-info card-body text-center wow zoomInUp animation-delay-2">
@@ -133,31 +133,31 @@
           <tr>
             <th>
               <i class="zmdi zmdi-account mr-1 color-success"></i> User Name</th>
-            <td>{{currentUser.username}}</td>
+            <td>{{user.username}}</td>
           </tr>
           <tr>
             <th>
               <i class="zmdi zmdi-face mr-1 color-warning"></i> Fullname</th>
-            <td>{{currentUser.username}}</td>
+            <td>{{user.username}}</td>
           </tr>
           <tr>
             <th>
               <i class="zmdi zmdi-email mr-1 color-danger"></i> Email</th>
             <td>
-              <a href="#">{{currentUser.username}}@example.com</a>
+              <a href="#">{{user.username}}@example.com</a>
             </td>
           </tr>
           <tr>
             <th>
               <i class="zmdi zmdi-link mr-1 color-info"></i> Website</th>
             <td>
-              <a href="#">www.{{currentUser.username}}.com</a>
+              <a href="#">www.{{user.username}}.com</a>
             </td>
           </tr>
           <tr>
             <th>
               <i class="zmdi zmdi-calendar mr-1 color-royal"></i> Member Since</th>
-            <td>{{currentUser.membreSince | date: 'dd-MM-yyy'}}</td>
+            <td>{{user.membreSince | date: 'dd-MM-yyy'}}</td>
           </tr>
         </table>
       </div>

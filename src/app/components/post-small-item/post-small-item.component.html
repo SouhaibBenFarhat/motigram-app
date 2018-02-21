@@ -6,7 +6,8 @@
   </div>
   <div class="media-body">
     <h4 class="media-heading">
-      <a href="javascript:void(0)"> {{ (post.description.length>100)? (post.description | slice:0:100)+'..':(post.description) }}
+      <a href="javascript:void(0)" *ngIf="post.description"> {{ (post.description.length>100)? (post.description | slice:0:100)+'..':(post.description) }}</a>
+      <a href="javascript:void(0)" *ngIf="!post.description"> No description provided...
       </a>
     </h4>
     <div class="media-footer">

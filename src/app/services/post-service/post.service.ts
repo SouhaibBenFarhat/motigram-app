@@ -8,6 +8,7 @@ import { User } from "../../models/user";
 import { AuthService } from "../auth-service/auth.service";
 
 import 'rxjs/add/operator/map';
+import { EventBus } from '../../EventEmitter/event.bus';
 
 
 
@@ -19,7 +20,7 @@ export class PostService {
   private converter: Converters;
   private global: Globals;
 
-  constructor(private http: HttpClient, private authService: AuthService) {
+  constructor(private http: HttpClient, private authService: AuthService, private eventBus: EventBus) {
     this.converter = new Converters();
     this.global = new Globals();
   }
@@ -31,6 +32,23 @@ export class PostService {
     return new Promise((resolve, reject) => {
 
       this.http.get(this.global.urls['post'], { headers: headers }).map((data: any) => data.data).subscribe((data) => {
+        for (let i = 0; i < data.length; i++) {
+          let post = this.converter.postConverter(data[i])
+          posts.push(post);
+        }
+        resolve(posts);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+  getMostPopularPosts(): any {
+    let posts = Array<Post>();
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
+    return new Promise((resolve, reject) => {
+
+      this.http.get(this.global.urls['popular-post'], { headers: headers }).map((data: any) => data.data).subscribe((data) => {
         for (let i = 0; i < data.length; i++) {
           let post = this.converter.postConverter(data[i])
           posts.push(post);
@@ -73,6 +91,23 @@ export class PostService {
           posts.push(post);
         }
         resolve(posts);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  addNewPost(post: any): any {
+
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
+    return new Promise((resolve, reject) => {
+
+      this.http.post(this.global.urls['post'], post, { headers: headers }).map((data: any) => data.data).subscribe((data) => {
+        let post = this.converter.postConverter(data);
+        this.eventBus.onNewPostTriggerEvent(post);
+        resolve(post);
       }, (err) => {
         reject(err);
         console.log(err);

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Comment } from "../../models/comment";
 import { User } from "../../models/user";
 import { UserService } from "../../services/user-service/user.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-comment',
@@ -14,11 +15,13 @@ export class CommentComponent implements OnInit {
   user: User = new User();
 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit() {
     this.userService.getUserById(this.comment.userId).then((data) => {
       this.user = data;
+    }).catch((err)=>{
+     this.router.navigateByUrl("");
     })
   }
 

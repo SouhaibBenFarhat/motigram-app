@@ -1,18 +1,22 @@
 import { Injectable, EventEmitter } from '@angular/core';
+import { Post } from '../models/post';
 
 @Injectable()
 export class EventBus {
 
 
-    public onNewComment = new EventEmitter<any>();
+    public onNewPostAdded = new EventEmitter<Post>();
 
 
 
     constructor() { }
 
 
-    public onNewCommentAdded() {
-        this.onNewComment.emit(0);
+    public onNewPostTriggerEvent(post: Post) {
+        this.onNewPostAdded.emit(post);
     }
 
+    public suscribeToNewPostsevent(): EventEmitter<Post> {
+        return this.onNewPostAdded;
+    }
 }

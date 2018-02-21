@@ -1,0 +1,9 @@
+.circle-image {
+    display: block;
+    border-radius: 50%;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    margin-top: 10px;
+    margin-left: 10px;
+}

@@ -30,6 +30,9 @@ import { PostService } from "./services/post-service/post.service";
 import { CommentService } from "./services/comment-service/comment.service";
 import { UserService } from "./services/user-service/user.service";
 import { EventBus } from "./EventEmitter/event.bus";
+import { UploadService } from "./services/upload-service/upload.service";
+
+
 
 
 //Components
@@ -47,7 +50,7 @@ import { CommentComponent } from './components/comment/comment.component';
 const appRoutes: Routes = [
   { path: 'authentication', component: AuthenticationComponent },
   { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'profile/:id', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'add-post', component: AddPostComponent }
 ]
 
@@ -84,7 +87,8 @@ const appRoutes: Routes = [
     UserService,
     AuthGuard,
     { provide: ToastOptions, useClass: ToastCustomOptions },
-    EventBus
+    EventBus,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })

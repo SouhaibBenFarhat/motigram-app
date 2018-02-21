@@ -10,7 +10,7 @@
     </div>
     <div class="header-right">
 
-      <a href="javascript:void(0)" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8" [routerLink]="'profile'">
+      <a href="javascript:void(0)" class="btn-circle btn-circle-primary no-focus animated zoomInDown animation-delay-8" [routerLink]="'profile/'+currentUser.id">
         <i class="zmdi zmdi-account"></i>
       </a>
 
@@ -33,7 +33,7 @@
     </div>
     <div class="collapse navbar-collapse" id="ms-navbar" *ngIf="!loggingOut">
 
-      <a [routerLink]="'profile'" href="javascript:void(0)" class="btn btn-white">
+      <a [routerLink]="'profile/'+currentUser.id" href="javascript:void(0)" class="btn btn-white">
         <i class="zmdi zmdi-account"></i>
         {{currentUser.username}}.
         <div class="ripple-container"></div>
@@ -44,7 +44,7 @@
         Logout.
         <div class="ripple-container"></div>
       </a>
-      <a href="javascript:void(0)" class="btn btn-raised btn-success">
+      <a href="javascript:void(0)" class="btn btn-raised btn-success" data-toggle="modal" data-target="#myModal4">
         <i class="zmdi zmdi-plus"></i>Upload
         <div class="ripple-container"></div>
       </a>
@@ -69,3 +69,55 @@
   </div>
   <!-- container -->
 </nav>
+
+<!-- modal -->
+<div class="modal modal-primary" id="myModal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel4">
+  <div class="modal-dialog  animated zoomIn animated-3x" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <img style="height: 50px; width: 50px;" class="circle-image" src="{{currentUser.profilePicture}}">
+        <h3 class="modal-title" id="myModalLabel4">Share a new Post.</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">
+            <i class="zmdi zmdi-close"></i>
+          </span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="ms-preload" *ngIf="loading">
+          <div id="status">
+            <div class="spinner">
+              <div class="dot1"></div>
+              <div class="dot2"></div>
+              <div class="dot3"></div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+          <img src="{{imageSource}}" alt="" class="img-fluid mb-4">
+        </div>
+        <input type="file" id="inputFile" (change)="fileChange($event)" accept=".jpg,.png,.jpeg" #inputFile [hidden]="true">
+        <a href="javascript:void(0)" class="btn btn-raised btn-primary" (click)="openUploader()">
+          <i class="zmdi zmdi-plus"></i>Select
+          <div class="ripple-container"></div>
+        </a>
+        <fieldset>
+          <div class="form-group row">
+            <div class="col-lg-12">
+              <textarea (keyup)="error = false;" [(ngModel)]="post.description" name="description" placeholder="Write a description..."
+                class="form-control" rows="2" id="textArea"></textarea>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <a href="javascript:void(0)" #closeBtn data-dismiss="modal" class="btn-circle btn-circle-raised btn-circle-danger">
+          <i class="fa fa-close"></i>
+        </a>
+        <a href="javascript:void(0)" (click)="sendNewPost()" class="btn-circle btn-circle-raised btn-circle-success">
+          <i class="zmdi zmdi-mail-send"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

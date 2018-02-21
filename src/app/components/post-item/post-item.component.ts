@@ -65,7 +65,7 @@ export class PostItemComponent implements OnInit, AfterViewInit {
     } else {
       console.log('empty comment');
       this.error = true;
-      this.errorText = "empty comment are forbidden...";
+      this.errorText = "Empty comments are forbidden...";
     }
   }
 

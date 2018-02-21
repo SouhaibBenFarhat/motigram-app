@@ -79,7 +79,6 @@ export class AuthService {
         if (data != null) {
           this.currentUser = this.converter.userConverter(data);
           this.persistToken(this.currentUser.token);
-          console.log('this.currentUser.token');
           resolve(this.currentUser);
 
         } else {
@@ -101,7 +100,6 @@ export class AuthService {
     } else {
       localStorage.removeItem(this.global.TOKEN_KEY);
       localStorage.setItem(this.global.IS_LOGGED_IN, 'false');
-      console.log('here');
       window.location.href = "http://localhost:4200/authentication"
     }
   }
@@ -125,7 +123,6 @@ export class AuthService {
     localStorage.setItem(this.global.IS_LOGGED_IN, 'false');
     localStorage.removeItem(this.global.TOKEN_KEY);
     this.router.navigateByUrl('authentication');
-    console.log('ha zebbi');
   }
 
 }
