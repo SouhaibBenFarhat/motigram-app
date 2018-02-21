@@ -21,8 +21,11 @@ export class ProfileComponent implements OnInit {
   private user: User = new User();
   private posts: Array<Post> = new Array<Post>();
   private comments: Array<Comment> = new Array<Comment>();
+  private recentComments: Array<Comment> = new Array<Comment>();
 
-  constructor( private router: Router, private userService: UserService, private authService: AuthService, private postService: PostService, private commentService: CommentService, private route: ActivatedRoute) { }
+
+
+  constructor(private router: Router, private userService: UserService, private authService: AuthService, private postService: PostService, private commentService: CommentService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -32,7 +35,7 @@ export class ProfileComponent implements OnInit {
         this.user = data;
         this.getUserPosts();
         this.getUserComments();
-      }).catch((err)=>{
+      }).catch((err) => {
         this.router.navigateByUrl("");
       })
 
@@ -50,7 +53,11 @@ export class ProfileComponent implements OnInit {
   getUserComments() {
     this.commentService.getLatestCommentsByUserId(this.user.id).then((data) => {
       this.comments = data;
-      console.log(this.comments);
+      for (let i = 0; i < this.comments.length; i++) {
+        this.recentComments.push(this.comments[i]);
+      }
+      this.recentComments.length = Math.min(this.comments.length, 5);
+
     })
   }
 

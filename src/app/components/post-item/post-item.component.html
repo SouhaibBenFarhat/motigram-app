@@ -61,12 +61,22 @@
     <div class="row">
       <div class="col-md-6">
         <div class="mt-1">
-          <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-success mr-2">
+          <a href="javascript:void(0)" (click)="like()" *ngIf="canLike" class="btn-circle btn-circle-raised btn-circle-success mr-2">
+            <i class="zmdi  zmdi-thumb-up"></i>
+            <span class="badge-pill badge-pill-primary">{{post.likes}}</span>
+          </a>
+          <a href="javascript:void(0)" data-container="body" data-toggle="popover" data-placement="top" data-content="Already liked."
+            *ngIf="!canLike" class="btn-circle btn-circle-raised btn-circle-default mr-2">
             <i class="zmdi  zmdi-thumb-up"></i>
             <span class="badge-pill badge-pill-primary">{{post.likes}}</span>
           </a>
 
-          <a href="javascript:void(0)" class="btn-circle btn-circle-raised btn-circle-danger mr-2">
+
+          <a href="javascript:void(0)" (click)="dislike()" *ngIf="canDislike" class="btn-circle btn-circle-raised btn-circle-danger mr-2">
+            <i class="zmdi  zmdi-thumb-down"></i>
+            <span class="badge-pill badge-pill-primary">{{post.dislike}}</span>
+          </a>
+          <a href="javascript:void(0)" *ngIf="!canDislike" class="btn-circle btn-circle-raised btn-circle-default mr-2">
             <i class="zmdi  zmdi-thumb-down"></i>
             <span class="badge-pill badge-pill-primary">{{post.dislike}}</span>
           </a>

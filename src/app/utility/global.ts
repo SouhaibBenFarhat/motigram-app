@@ -32,6 +32,10 @@ export class Globals {
         this.urls['post-by-username'] = this.serverAddress + '/api/v1/post/';
         this.urls['upload'] = this.serverAddress + '/api/v1/upload/';
         this.urls['popular-post'] = this.serverAddress + '/api/v1/post/popular/';
+        this.urls['like-post'] = this.serverAddress + '/api/v1/post/like/';
+        this.urls['dislike-post'] = this.serverAddress + '/api/v1/post/dislike/';
+
+
 
 
 

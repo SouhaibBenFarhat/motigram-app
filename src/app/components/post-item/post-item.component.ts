@@ -5,6 +5,7 @@ import { Comment } from "../../models/comment";
 import { CommentService } from "../../services/comment-service/comment.service";
 import { AuthService } from '../../services/auth-service/auth.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { PostService } from '../../services/post-service/post.service';
 
 
 
@@ -23,8 +24,10 @@ export class PostItemComponent implements OnInit, AfterViewInit {
   comment = new Comment();
   error: boolean = false;
   errorText: string = "";
+  canLike: boolean = true;
+  canDislike: boolean = true;
 
-  constructor(private commentService: CommentService, private authService: AuthService, private toastr: ToastsManager, private vcr: ViewContainerRef) {
+  constructor(private postService: PostService, private commentService: CommentService, private authService: AuthService, private toastr: ToastsManager, private vcr: ViewContainerRef) {
     this.toastr.setRootViewContainerRef(vcr);
   }
 
@@ -33,17 +36,53 @@ export class PostItemComponent implements OnInit, AfterViewInit {
 
     this.comment.content = "";
     this.loadComments();
-    this.authService.getCurrentUser().then((data) => {
-      this.currentUser = data;
-    });
-
-
-
+    this.updateUI();
 
   }
+
 
   ngAfterViewInit() {
   }
+
+
+  updateUI() {
+    this.authService.getCurrentUser().then((data) => {
+      this.currentUser = data;
+      for (let i = 0; i < this.post.interactions.length; i++) {
+
+        if (this.post.interactions[i].userId === this.currentUser.id && this.post.interactions[i].type === "like") {
+          this.canLike = false;
+        }
+        if (this.post.interactions[i].userId === this.currentUser.id && this.post.interactions[i].type === "dislike") {
+          this.canDislike = false;
+        }
+
+      }
+    });
+  }
+
+  like() {
+    if (this.currentUser == undefined || this.currentUser == null) {
+      return;
+    }
+
+    this.postService.likePost(this.post.id, this.currentUser.id).then((data) => {
+      this.post = data;
+      this.updateUI();
+    })
+  }
+
+  dislike() {
+    if (this.currentUser == undefined || this.currentUser == null) {
+      return;
+    }
+
+    this.postService.dislikePost(this.post.id, this.currentUser.id).then((data) => {
+      this.post = data;
+      this.updateUI();
+    })
+  }
+
 
   closeCommentModal() {
     this.closeModal.nativeElement.click()

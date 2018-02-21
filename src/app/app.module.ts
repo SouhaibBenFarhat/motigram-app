@@ -44,6 +44,9 @@ import { HomeSidebarComponent } from './components/home/home-sidebar/home-sideba
 import { FooterComponent } from './components/footer/footer.component';
 import { PostSmallItemComponent } from './components/post-small-item/post-small-item.component';
 import { CommentComponent } from './components/comment/comment.component';
+import { TimelineItemComponent } from './components/timeline-item/timeline-item.component';
+import { RecentCommentComponent } from './components/recent-comment/recent-comment.component';
+import { RecentCommentItemComponent } from './components/recent-comment/recent-comment-item/recent-comment-item.component';
 
 
 //Routes Configuration
@@ -71,7 +74,10 @@ const appRoutes: Routes = [
     HomeSidebarComponent,
     FooterComponent,
     PostSmallItemComponent,
-    CommentComponent
+    CommentComponent,
+    TimelineItemComponent,
+    RecentCommentComponent,
+    RecentCommentItemComponent
   ],
   imports: [
     BrowserModule,

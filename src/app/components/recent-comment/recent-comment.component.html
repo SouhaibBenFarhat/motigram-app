@@ -1,0 +1,10 @@
+    <div class="card animated fadeInUp animation-delay-12">
+      <div class="ms-hero-bg-royal ms-hero-img-mountain">
+        <h3 class="color-white index-1 text-center pb-4 pt-4">Recent Contacts</h3>
+      </div>
+      <div class="card-body">
+        <div class="ms-media-list">
+       <app-recent-comment-item *ngFor="let comment of comments" [comment]="comment"></app-recent-comment-item>
+        </div>
+      </div>
+    </div>

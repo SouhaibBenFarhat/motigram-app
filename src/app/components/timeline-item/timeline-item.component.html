@@ -1,0 +1,37 @@
+<li class="ms-timeline-item wow materialUp" *ngIf="post">
+  <div class="ms-timeline-date">
+    <time class="timeline-time" datetime="">
+      {{myCustomDate.day}} {{myCustomDate.month | date: 'MMMM'}}
+      <span>{{myCustomDate.year}}</span>
+
+
+    </time>
+    <i class="ms-timeline-point bg-royal"></i>
+    <img src="{{post.owner.profilePicture}}" class="ms-timeline-point-img">
+  </div>
+  <article class="card wow fadeInLeft animation-delay-5 mb-4" style="visibility: visible; animation-name: fadeInLeft;">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-xl-6">
+          <img src="{{post.thumbnail}}" alt="" class="img-fluid mb-4"> </div>
+        <div class="col-xl-6">
+
+          <p *ngIf="post.description">{{ (post.description.length>200)? (post.description | slice:0:200)+'..':(post.description) }}</p>
+
+          <h3 class="no-mt" *ngIf="!post.description">
+            <a href="javascript:void(0)">No description provided...</a>
+          </h3>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-8">
+
+        </div>
+        <div class="col-lg-4 text-right">
+
+        </div>
+      </div>
+    </div>
+  </article>
+</li>

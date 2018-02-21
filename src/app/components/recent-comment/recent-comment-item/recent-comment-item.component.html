@@ -1,0 +1,20 @@
+<div class="media mb-2">
+    <a class="mr-3" href="javascript:void(0)" [routerLink]="'/profile/'+post.owner.userId" >
+      <img class="media-object" src="{{post.owner.profilePicture}}"> </a>
+    <div class="media-body">
+      <h4 class="mt-0 mb-0 color-warning">{{post.owner.username}}</h4>
+      <a href="javascript:void(0)">{{post.owner.username}}@example.com</a>
+      <p>{{comment.content}}</p>
+      <div class="">
+        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-facebook">
+          <i class="zmdi zmdi-facebook"></i>
+        </a>
+        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-twitter">
+          <i class="zmdi zmdi-twitter"></i>
+        </a>
+        <a href="javascript:void(0)" class="btn-circle btn-circle-xs no-mr-md btn-instagram">
+          <i class="zmdi zmdi-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </div>

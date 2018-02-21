@@ -42,6 +42,23 @@ export class PostService {
       });
     });
   }
+
+  getPostById(postId): any {
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
+    return new Promise((resolve, reject) => {
+
+      this.http.get(this.global.urls['post'] + '?id=' + postId, { headers: headers }).map((data: any) => data.data).subscribe((data) => {
+        let post = this.converter.postConverter(data);
+        resolve(post);
+      }, (err) => {
+        reject(err);
+      });
+    });
+  }
+
+
+
   getMostPopularPosts(): any {
     let posts = Array<Post>();
     let headers = new HttpHeaders(
@@ -107,6 +124,38 @@ export class PostService {
       this.http.post(this.global.urls['post'], post, { headers: headers }).map((data: any) => data.data).subscribe((data) => {
         let post = this.converter.postConverter(data);
         this.eventBus.onNewPostTriggerEvent(post);
+        resolve(post);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  likePost(postId: string, userId: string): any {
+
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
+    return new Promise((resolve, reject) => {
+
+      this.http.post(this.global.urls['like-post'], { postId: postId, userId: userId }, { headers: headers }).map((data: any) => data.data).subscribe((data) => {
+        let post = this.converter.postConverter(data);
+        resolve(post);
+      }, (err) => {
+        reject(err);
+        console.log(err);
+      });
+    });
+  }
+
+  dislikePost(postId: string, userId: string): any {
+
+    let headers = new HttpHeaders(
+      { 'authorization': 'Bearer ' + this.authService.getCurrentUserToken() });
+    return new Promise((resolve, reject) => {
+
+      this.http.post(this.global.urls['dislike-post'], { postId: postId, userId: userId }, { headers: headers }).map((data: any) => data.data).subscribe((data) => {
+        let post = this.converter.postConverter(data);
         resolve(post);
       }, (err) => {
         reject(err);
